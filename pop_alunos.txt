@@ -1,0 +1,7 @@
+INSERT INTO aluno (nome, ra, curso, ingresso) VALUES
+('Dummy', 0, 3, 1969),
+('Antonio De Cesare Del Nero', 220277, 42, 2022),
+('Gabriel Cruz Vitale Torkomian', 251054, 1, 2022),
+('Gustavo Oliveira de Sousa', 247149, 34, 2021),
+('Max Arruda Braz', 241957, 42, 2019),
+('Vitor Takahashi Miranda', 231740, 42, 2022);

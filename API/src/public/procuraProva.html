@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procurar Prova</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    #app {
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: white;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+    .form-container label {
+      font-size: 14px;
+      color: #333;
+    }
+    .form-container select,
+    .form-container input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 100%;
+    }
+    #resultados {
+      margin-top: 20px;
+    }
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Procurar Prova</h2>
+    <form id="searchForm" class="form-container" onsubmit="handleProcurarProva(event)">
+
+        <label for="professorName">Professor:</label>
+        <input type="text" id="professorName" list="professor-list">
+        <input type="hidden" id="professorId" name="professorId">
+        <datalist id="professor-list">
+          <option data-id=0 value="Dummy"></option>
+          <option data-id=1 value="Alexandre Xavier Falcão"></option>
+          <option data-id=2 value="Allan Mariano de Souza"></option>
+          <option data-id=3 value="Anderson de Rezende Rocha"></option>
+          <option data-id=4 value="André Santanchè"></option>
+          <option data-id=5 value="Breno Bernard Nicolau de França"></option>
+          <option data-id=6 value="Bruno Barbieri de Pontes Cafeo"></option>
+          <option data-id=7 value="Carlos Alberto Astudillo Trujillo"></option>
+          <option data-id=8 value="Cecília Mary Fischer Rubira"></option>
+          <option data-id=9 value="Christiane Neme Campos"></option>
+          <option data-id=10 value="Claudia Maria Bauzer Medeiros"></option>
+          <option data-id=11 value="Edmundo Roberto Mauro Madeira"></option>
+          <option data-id=12 value="Edson Borin"></option>
+          <option data-id=13 value="Emanuel Felipe Duarte"></option>
+          <option data-id=14 value="Esther Luna Colombini"></option>
+          <option data-id=15 value="Fábio Luiz Usberti"></option>
+          <option data-id=16 value="Flávio Keidi Miyazawa"></option>
+          <option data-id=17 value="Guido Costa Souza de Araújo"></option>
+          <option data-id=18 value="Guilherme P. Telles"></option>
+          <option data-id=19 value="Hélio Pedrini"></option>
+          <option data-id=20 value="Hervé Cédric Yviquel"></option>
+          <option data-id=21 value="Hilder Vitor Lima Pereira"></option>
+          <option data-id=22 value="Islene Calciolari Garcia"></option>
+          <option data-id=23 value="Jacques Wainer"></option>
+          <option data-id=24 value="João Meidanis"></option>
+          <option data-id=25 value="Jorge Stolfi"></option>
+          <option data-id=26 value="Juliana Freitag Borin"></option>
+          <option data-id=27 value="Julio Cesar dos Reis"></option>
+          <option data-id=28 value="Julio César López Hernández"></option>
+          <option data-id=29 value="Leandro Aparecido Villas"></option>
+          <option data-id=30 value="Lehilton Lelis Chaves Pedrosa"></option>
+          <option data-id=31 value="Lucas Francisco Wanner"></option>
+          <option data-id=32 value="Luiz Fernando Bittencourt"></option>
+          <option data-id=33 value="Marcelo da Silva Reis"></option>
+          <option data-id=34 value="Marcos Medeiros Raimundo"></option>
+          <option data-id=35 value="Nelson Luis Saldanha da Fonseca"></option>
+          <option data-id=36 value="Orlando Lee"></option>
+          <option data-id=37 value="Paulo César Centoducatte"></option>
+          <option data-id=38 value="Paulo Lício de Geus"></option>
+          <option data-id=39 value="Pedro Jussieu de Rezende"></option>
+          <option data-id=40 value="Rafael Crivellari Saliba Schouery"></option>
+          <option data-id=41 value="Ricardo Dahab"></option>
+          <option data-id=42 value="Ricardo Pannain"></option>
+          <option data-id=43 value="Rodolfo Jardim de Azevedo"></option>
+          <option data-id=44 value="Ruben Interian"></option>
+          <option data-id=45 value="Sandra Eliza Fontes de Avila"></option>
+          <option data-id=46 value="Sandro Rigo"></option>
+          <option data-id=47 value="Santiago Valdés Ravelo"></option>
+          <option data-id=48 value="Zanoni Dias"></option>
+  
+          <!-- Professores do Instituto de Física Gleb Wataghin (IFGW) -->
+          <option data-id=49 value="Prof. Dr. Abner de Siervo"></option>
+          <option data-id=50 value="Profa. Dra. Alessandra Tomal"></option>
+          <option data-id=51 value="Prof. Dr. Alex Antonelli"></option>
+          <option data-id=52 value="Prof. Dr. Alexandre Fontes da Fonseca"></option>
+          <option data-id=53 value="Prof. Dr. Amir Ordacgi Caldeira"></option>
+          <option data-id=54 value="Prof. Dr. Anderson Campos Fauth"></option>
+          <option data-id=55 value="Prof. Dr. André Alexandre de Thomaz"></option>
+          <option data-id=56 value="Prof. Dr. André Koch Torres de Assis"></option>
+          <option data-id=57 value="Prof. Dr. Andre Monteiro Paschoal"></option>
+          <option data-id=58 value="Prof. Dr. Antonio Riul Junior"></option>
+          <option data-id=59 value="Prof. Dr. Antonio Vidiella Barranco"></option>
+          <option data-id=60 value="Profa. Dra. Arlene Cristina Aguilar"></option>
+          <option data-id=61 value="Prof. Dr. Arnaldo Naves de Brito"></option>
+          <option data-id=62 value="Profa. Dra. Carola Dobrigkeit Chinellato"></option>
+          <option data-id=63 value="Prof. Dr. Christoph Friedrich Deneke"></option>
+          <option data-id=64 value="Profa. Dra. Cris Adriano"></option>
+          <option data-id=65 value="Profa. Dra. Cristiane Jahnke Fiorini da Silva"></option>
+          <option data-id=66 value="Prof. Dr. Cristiano Monteiro de Barros Cordeiro"></option>
+          <option data-id=67 value="Prof. Dr. Daniel Mario Ugarte"></option>
+          <option data-id=68 value="Prof. Dr. David Mendez Soares"></option>
+          <option data-id=69 value="Prof. Dr. Diego Muraca"></option>
+          <option data-id=70 value="Prof. Dr. Donato Giorgio Torrieri"></option>
+          <option data-id=71 value="Prof. Dr. Douglas Soares Galvão"></option>
+          <option data-id=72 value="Prof. Dr. Edison Zacarias da Silva"></option>
+          <option data-id=73 value="Prof. Dr. Eduardo Granado Monteiro da Silva"></option>
+          <option data-id=74 value="Prof. Dr. Eduardo Miranda"></option>
+          <option data-id=75 value="Prof. Dr. Ernesto Kemp"></option>
+          <option data-id=76 value="Prof. Dr. Ettore Segreto"></option>
+          <option data-id=77 value="Profa. Dra. Fanny Béron"></option>
+          <option data-id=78 value="Prof. Dr. Felippe Alexandre Silva Barbosa"></option>
+          <option data-id=79 value="Profa. Dra. Flavia Sobreira"></option>
+          <option data-id=80 value="Prof. Dr. Flávio Caldas da Cruz"></option>
+          <option data-id=81 value="Prof. Dr. Francisco das Chagas Marques"></option>
+          <option data-id=82 value="Prof. Dr. Francisco Paulo Marques Rouxinol"></option>
+          <option data-id=83 value="Profa. Dra. Gabriela Castellano"></option>
+          <option data-id=84 value="Prof. Dr. Guilherme Stecca Marcom"></option>
+          <option data-id=85 value="Prof. Dr. Gustavo Silva Wiederhecker"></option>
+          <option data-id=86 value="Prof. Dr. Iakov Veniaminovitch Kopelevitch"></option>
+          <option data-id=87 value="Prof. Dr. Jonathas de Paula Siqueira"></option>
+          <option data-id=88 value="Prof. Dr. José Antônio Brum"></option>
+          <option data-id=89 value="Prof. Dr. José Augusto Chinellato"></option>
+          <option data-id=90 value="Prof. Dr. Jun Takahashi"></option>
+          <option data-id=91 value="Prof. Dr. Kleber Roberto Pirota"></option>
+          <option data-id=92 value="Prof. Dr. Lázaro Aurélio Padilha Junior"></option>
+          <option data-id=93 value="Prof. Dr. Leandro Russovski Tessler"></option>
+          <option data-id=94 value="Prof. Dr. Luís Eduardo Evangelista de Araujo"></option>
+          <option data-id=95 value="Prof. Dr. Luiz Fernando Zagonel"></option>
+          <option data-id=96 value="Prof. Dr. Luiz Filipe Campos Faria"></option>
+          <option data-id=97 value="Prof. Dr. Marcelo Knobel"></option>
+          <option data-id=98 value="Prof. Dr. Marcos Cesar de Oliveira"></option>
+          <option data-id=99 value="Prof. Dr. Marcus Aloizio Martinez de Aguiar"></option>
+          <option data-id=100 value="Prof. Dr. Marcus Vinicius Segantini Bonança"></option>
+          <option data-id=101 value="Prof. Dr. Mario Antonio Bernal Rodriguez"></option>
+          <option data-id=102 value="Prof. Dr. Mário Noboru Tamashiro"></option>
+          <option data-id=103 value="Prof. Dr. Maurice de Koning"></option>
+          <option data-id=104 value="Prof. Dr. Maurício Urban Kleinke"></option>
+          <option data-id=105 value="Profa. Dra. Mônica Alonso Cotta"></option>
+          <option data-id=106 value="Prof. Dr. Newton Cesario Frateschi"></option>
+          <option data-id=107 value="Prof. Dr. Odilon Divino Damasceno Couto Junior"></option>
+          <option data-id=108 value="Prof. Dr. Orlando Luis Goulart Peres"></option>
+          <option data-id=109 value="Prof. Dr. Pascoal José Giglio Pagliuso"></option>
+          <option data-id=110 value="Profa. Dra. Patricia Camargo Magalhaes"></option>
+          <option data-id=111 value="Prof. Dr. Pedro Cunha de Holanda"></option>
+          <option data-id=112 value="Prof. Dr. Pierre Louis de Assis"></option>
+          <option data-id=113 value="Prof. Dr. Rafael Luiz da Silva Rabelo"></option>
+          <option data-id=114 value="Prof. Dr. Ricardo Antonio Mosna"></option>
+          <option data-id=115 value="Prof. Dr. Ricardo Luís Doretto"></option>
+          <option data-id=116 value="Prof. Dr. Ricardo Rodrigues Urbano"></option>
+          <option data-id=117 value="Prof. Dr. Rickson Coelho Mesquita"></option>
+          <option data-id=118 value="Prof. Dr. Sandro Guedes de Oliveira"></option>
+          <option data-id=119 value="Prof. Dr. Silvio Antonio Sachetto Vitiello"></option>
+          <option data-id=120 value="Prof. Dr. Thiago Pedro Mayer Alegre"></option>
+          <option data-id=121 value="Prof. Dr. Thiago Vasconcelos Ribeiro"></option>
+          <option data-id=122 value="Prof. Dr. Varlei Rodrigues"></option>
+          <option data-id=123 value="Prof. Dr. Willian Massashi Hisano Natori"></option>
+  
+          <!-- Professores do Instituto de Matemática, Estatística e Computação Científica (IMECC) -->
+          <option data-id=124 value="Ademir Pastor Ferreira"></option>
+          <option data-id=125 value="Adriano A. Moura"></option>
+          <option data-id=126 value="Alessio Fiscella"></option>
+          <option data-id=127 value="Anne Caroline Bronzi"></option>
+          <option data-id=128 value="Argenis Jose Mendez Garcia"></option>
+          <option data-id=129 value="Artem Lopatin"></option>
+          <option data-id=130 value="Bianca M. R. Calsavara"></option>
+          <option data-id=131 value="Christian H. Olivera"></option>
+          <option data-id=132 value="Claudemir Fideles Bezerra Jr."></option>
+          <option data-id=133 value="Dessislava Kochloukova"></option>
+          <option data-id=134 value="Diego S. Ledesma"></option>
+          <option data-id=135 value="Douglas D. Novaes"></option>
+          <option data-id=136 value="Eder de Moraes Correa"></option>
+          <option data-id=137 value="Eduardo Garibaldi"></option>
+          <option data-id=138 value="Ethan Guy Cotterill"></option>
+          <option data-id=139 value="Gabriel Ponce"></option>
+          <option data-id=140 value="Gabriela V. Planas"></option>
+          <option data-id=141 value="Giuliano Angelo Zugliani"></option>
+          <option data-id=142 value="Henrique N. Sá Earp"></option>
+          <option data-id=143 value="Joachim Weber"></option>
+          <option data-id=144 value="João Vitor da Silva"></option>
+          <option data-id=145 value="Johnny Albert dos Santos Lima"></option>
+          <option data-id=146 value="José Regis Azevedo Varão Filho"></option>
+          <option data-id=147 value="Juan Francisco Camasca Fernández"></option>
+          <option data-id=148 value="Ketty A. Rezende"></option>
+          <option data-id=149 value="Laura Rifo"></option>
+          <option data-id=150 value="Lino A. S. Grama"></option>
+          <option data-id=151 value="Lucas C. F. Ferreira"></option>
+          <option data-id=152 value="Mahendra P. Panthee"></option>
+          <option data-id=153 value="Marcelo Firer"></option>
+          <option data-id=154 value="Marcelo S. Montenegro"></option>
+          <option data-id=155 value="Márcio Antonio de Faria Rosa"></option>
+          <option data-id=156 value="Marcos B. Jardim"></option>
+          <option data-id=157 value="Paulo R. C. Ruffino"></option>
+          <option data-id=158 value="Pedro J. Catuogno"></option>
+          <option data-id=159 value="Pietro Speziali"></option>
+          <option data-id=160 value="Plamen E. Kochloukov"></option>
+          <option data-id=161 value="Ricardo Miranda Martins"></option>
+          <option data-id=162 value="Saeed Tafazolian"></option>
+          <option data-id=163 value="Sahibzada Waleed Noor"></option>
+          <option data-id=164 value="Sérgio A. Tozoni"></option>
+          <option data-id=165 value="Tiago Jardim da Fonseca"></option>
+          <option data-id=166 value="Viviana Jorgelina Del Barco"></option>
+          <option data-id=167 value="Alex Rodrigo dos Santos Sousa"></option>
+          <option data-id=168 value="Aluísio S. Pinheiro"></option>
+          <option data-id=169 value="Benilton de Sá Carvalho"></option>
+          <option data-id=170 value="Caio L. N. Azevedo"></option>
+          <option data-id=171 value="Carlos Cesar Trucios Maza"></option>
+          <option data-id=172 value="Christophe F. Gallesco"></option>
+          <option data-id=173 value="Diego F. Bernardini"></option>
+          <option data-id=174 value="Élcio Lebensztayn"></option>
+          <option data-id=175 value="Filidor E. Labra"></option>
+          <option data-id=176 value="Guilherme V. Nunes Ludwig"></option>
+          <option data-id=177 value="Hildete P. Pinheiro"></option>
+          <option data-id=178 value="Jesús Enrique Garcia"></option>
+          <option data-id=179 value="Larissa A. Matos"></option>
+          <option data-id=180 value="Mariana R. Motta"></option>
+          <option data-id=181 value="Mauricio E. Zevallos Herencia"></option>
+          <option data-id=182 value="Nancy L. Garcia"></option>
+          <option data-id=183 value="Rafael P. Maia"></option>
+          <option data-id=184 value="Ronaldo Dias"></option>
+          <option data-id=185 value="Samara F. Kiihl"></option>
+          <option data-id=186 value="Tatiana Benaglia"></option>
+          <option data-id=187 value="Verónica A. González-Lopez"></option>
+          <option data-id=188 value="Victor Freguglia Souza"></option>
+  
+          <!-- Professores da Faculdade de Engenharia Elétrica e de Computação (FEEC) -->
+          <option data-id=189 value="Alim Pedro de Castro Goncalves"></option>
+          <option data-id=190 value="Christian Rodolfo Esteve Rothenberg"></option>
+          <option data-id=191 value="Denis Gustavo Fantinato"></option>
+          <option data-id=192 value="Eduardo Alves do Valle Junior"></option>
+          <option data-id=193 value="Eric Rohmer"></option>
+          <option data-id=194 value="Fernando Antonio Campos Gomide"></option>
+          <option data-id=195 value="Fernando José Von Zuben"></option>
+          <option data-id=196 value="Jose Mario de Martino"></option>
+          <option data-id=197 value="José Raimundo de Oliveira"></option>
+          <option data-id=198 value="Letícia Rittner"></option>
+          <option data-id=199 value="Levy Boccato"></option>
+          <option data-id=200 value="Marco Aurélio Amaral Henriques"></option>
+          <option data-id=201 value="Matheus Souza"></option>
+          <option data-id=202 value="Paula Dornhofer Paro Costa"></option>
+          <option data-id=203 value="Rafael Ferrari"></option>
+          <option data-id=204 value="Ricardo Ribeiro Gudwin"></option>
+          <option data-id=205 value="Roberto de Alencar Lotufo"></option>
+          <option data-id=206 value="Romis Ribeiro de Faissol Attux"></option>
+          <option data-id=207 value="Wu Shin Ting"></option>
+          <option data-id=208 value="Aldario Chrestani Bordonalli"></option>
+          <option data-id=209 value="Bruno Sanches Masiero"></option>
+          <option data-id=210 value="Dalton Soares Arantes"></option>
+          <option data-id=211 value="Darli Augusto de Arruda Mello"></option>
+          <option data-id=212 value="Edgar Eduardo Benitez Olivo"></option>
+          <option data-id=213 value="Evandro Conforti"></option>
+          <option data-id=214 value="Gilliard Nardel Malheiros Silveira"></option>
+          <option data-id=215 value="Gustavo Fraidenraich"></option>
+          <option data-id=216 value="Hélio Waldman"></option>
+          <option data-id=217 value="Hugo Enrique Hernandez Figueroa"></option>
+          <option data-id=218 value="João Marcos Travassos Romano"></option>
+          <option data-id=219 value="José Candido Silveira Santos Filho"></option>
+          <option data-id=220 value="Leonardo de Souza Mendes"></option>
+          <option data-id=221 value="Luís Geraldo Pedroso Meloni"></option>
+          <option data-id=222 value="Luiz César Martini"></option>
+          <option data-id=223 value="Max Henrique Machado Costa"></option>
+          <option data-id=224 value="Michel Daoud Yacoub"></option>
+          <option data-id=225 value="Michel Zamboni Rached"></option>
+          <option data-id=226 value="Paulo Cardieri"></option>
+          <option data-id=227 value="Reginaldo Palazzo Jr."></option>
+          <option data-id=228 value="Renato da Rocha Lopes"></option>
+          <option data-id=229 value="Yuzo Iano"></option>
+          <option data-id=230 value="Antônio Augusto Fasolo Quevedo"></option>
+          <option data-id=231 value="Carina Marconi Germer"></option>
+          <option data-id=232 value="Cesar José Bonjuani Pagan"></option>
+          <option data-id=233 value="Eduardo Tavares Costa"></option>
+          <option data-id=234 value="Fabiano Fruett"></option>
+          <option data-id=235 value="Gilmar Barreto"></option>
+          <option data-id=236 value="Hudson Giovani Zanin"></option>
+          <option data-id=237 value="José Alexandre Diniz"></option>
+          <option data-id=238 value="Jose Claudio Geromel"></option>
+          <option data-id=239 value="Jose Wilson Magalhaes Bassani"></option>
+          <option data-id=240 value="Leandro Tiago Manera"></option>
+          <option data-id=241 value="Leonardo Abdala Elias"></option>
+          <option data-id=242 value="Marco Roberto Cavallari"></option>
+          <option data-id=243 value="Marcos Vinícius Puydinger dos Santos"></option>
+          <option data-id=244 value="Mateus Giesbrecht"></option>
+          <option data-id=245 value="Pedro Xavier de Oliveira"></option>
+          <option data-id=246 value="Akebo Yamakami"></option>
+          <option data-id=247 value="Carlos Alberto de Castro Junior"></option>
+          <option data-id=248 value="Cecília de Freitas Morais"></option>
+          <option data-id=249 value="Christiano Lyra Filho"></option>
+          <option data-id=250 value="Daniel Dotta"></option>
+          <option data-id=251 value="Fernanda Caseño Trindade Arioli"></option>
+          <option data-id=252 value="José Antenor Pomilio"></option>
+          <option data-id=253 value="José Pissolato Filho"></option>
+          <option data-id=254 value="Luiz Carlos Pereira Da Silva"></option>
+          <option data-id=255 value="Madson Cortes de Almeida"></option>
+          <option data-id=256 value="Marconi Kolm Madrid"></option>
+          <option data-id=257 value="Marcos Julio Rider Flores"></option>
+          <option data-id=258 value="Maria Cristina Dias Tavares"></option>
+          <option data-id=259 value="Pedro Luis Dias Peres"></option>
+          <option data-id=260 value="Ricardo Coração de Leão de Oliveira"></option>
+          <option data-id=261 value="Secundino Soares Filho"></option>
+          <option data-id=262 value="Takaaki Ohishi"></option>
+          <option data-id=263 value="Tárcio André dos Santos Barros"></option>
+          <option data-id=264 value="Walmir de Freitas Filho"></option>
+  
+        </datalist>
+
+      <label for="sigla">Sigla:</label>
+      <input type="text" id="sigla" name="sigla" list="sigla-list">
+      <datalist id="sigla-list">
+        <!-- Disciplinas MC -->
+      <option value="MC001">
+      <option value="MC009">
+      <option value="MC011">
+      <option value="MC018">
+      <option value="MC019">
+      <option value="MC020">
+      <option value="MC030">
+      <option value="MC032">
+      <option value="MC033">
+      <option value="MC038">
+      <option value="MC039">
+      <option value="MC040">
+      <option value="MC041">
+      <option value="MC050">
+      <option value="MC051">
+      <option value="MC102">
+      <option value="MC202">
+      <option value="MC302">
+      <option value="MC322">
+      <option value="MC323">
+      <option value="MC326">
+      <option value="MC336">
+      <option value="MC346">
+      <option value="MC348">
+      <option value="MC358">
+      <option value="MC404">
+      <option value="MC426">
+      <option value="MC436">
+      <option value="MC437">
+      <option value="MC448">
+      <option value="MC458">
+      <option value="MC504">
+      <option value="MC511">
+      <option value="MC514">
+      <option value="MC521">
+      <option value="MC522">
+      <option value="MC526">
+      <option value="MC536">
+      <option value="MC542">
+      <option value="MC548">
+      <option value="MC558">
+      <option value="MC602">
+      <option value="MC603">
+      <option value="MC613">
+      <option value="MC621">
+      <option value="MC626">
+      <option value="MC636">
+      <option value="MC646">
+      <option value="MC658">
+      <option value="MC704">
+      <option value="MC705">
+      <option value="MC714">
+      <option value="MC715">
+      <option value="MC721">
+      <option value="MC722">
+      <option value="MC723">
+      <option value="MC732">
+      <option value="MC733">
+      <option value="MC738">
+      <option value="MC747">
+      <option value="MC748">
+      <option value="MC750">
+      <option value="MC758">
+      <option value="MC798">
+      <option value="MC821">
+      <option value="MC822">
+      <option value="MC823">
+      <option value="MC832">
+      <option value="MC833">
+      <option value="MC851">
+      <option value="MC853">
+      <option value="MC855">
+      <option value="MC857">
+      <option value="MC859">
+      <option value="MC861">
+      <option value="MC876">
+      <option value="MC886">
+      <option value="MC896">
+      <option value="MC898">
+      <option value="MC906">
+      <option value="MC907">
+      <option value="MC910">
+      <option value="MC911">
+      <option value="MC920">
+      <option value="MC921">
+      <option value="MC922">
+      <option value="MC937">
+      <option value="MC940">
+      <option value="MC946">
+      <option value="MC953">
+      <option value="MC962">
+      <option value="MC970">
+      <option value="MC971">
+  
+      <!-- Disciplinas MA -->
+      <option value="MA044">
+      <option value="MA091">
+      <option value="MA092">
+      <option value="MA093">
+      <option value="MA100">
+      <option value="MA104">
+      <option value="MA105">
+      <option value="MA109">
+      <option value="MA111">
+      <option value="MA116">
+      <option value="MA141">
+      <option value="MA148">
+      <option value="MA211">
+      <option value="MA220">
+      <option value="MA224">
+      <option value="MA225">
+      <option value="MA311">
+      <option value="MA312">
+      <option value="MA327">
+      <option value="MA419">
+      <option value="MA445">
+      <option value="MA446">
+      <option value="MA449">
+      <option value="MA453">
+      <option value="MA456">
+      <option value="MA502">
+      <option value="MA507">
+      <option value="MA520">
+      <option value="MA521">
+      <option value="MA553">
+      <option value="MA602">
+      <option value="MA604">
+      <option value="MA620">
+      <option value="MA621">
+      <option value="MA673">
+      <option value="MA700">
+      <option value="MA705">
+      <option value="MA711">
+      <option value="MA712">
+      <option value="MA713">
+      <option value="MA714">
+      <option value="MA715">
+      <option value="MA716">
+      <option value="MA717">
+      <option value="MA718">
+      <option value="MA719">
+      <option value="MA720">
+      <option value="MA724">
+      <option value="MA725">
+      <option value="MA726">
+      <option value="MA727">
+      <option value="MA728">
+      <option value="MA729">
+      <option value="MA731">
+      <option value="MA732">
+      <option value="MA733">
+      <option value="MA734">
+      <option value="MA740">
+      <option value="MA741">
+      <option value="MA742">
+      <option value="MA743">
+      <option value="MA744">
+      <option value="MA750">
+      <option value="MA752">
+      <option value="MA770">
+      <option value="MA800">
+      <option value="MA811">
+      <option value="MA812">
+      <option value="MA813">
+      <option value="MA814">
+      <option value="MA815">
+      <option value="MA816">
+      <option value="MA840">
+      <option value="MA852">
+      <option value="MA861">
+      <option value="MA870">
+      <option value="MA881">
+      <option value="MA882">
+      <option value="MA883">
+      <option value="MA884">
+      <option value="MA885">
+      <option value="MA886">
+      <option value="MA887">
+      <option value="MA888">
+      <option value="MA889">
+      <option value="MA901">
+      <option value="MA902">
+      <option value="MA903">
+      <option value="MA904">
+      <option value="MA905">
+  
+      <!-- Disciplinas ME -->
+      <option value="ME093">
+      <option value="ME100">
+      <option value="ME104">
+      <option value="ME105">
+      <option value="ME106">
+      <option value="ME110">
+      <option value="ME111">
+      <option value="ME115">
+      <option value="ME173">
+      <option value="ME176">
+      <option value="ME180">
+      <option value="ME203">
+      <option value="ME210">
+      <option value="ME213">
+      <option value="ME310">
+      <option value="ME313">
+      <option value="ME315">
+      <option value="ME319">
+      <option value="ME320">
+      <option value="ME321">
+      <option value="ME322">
+      <option value="ME323">
+      <option value="ME414">
+      <option value="ME415">
+      <option value="ME419">
+      <option value="ME420">
+      <option value="ME423">
+      <option value="ME430">
+      <option value="ME480">
+      <option value="ME501">
+      <option value="ME502">
+      <option value="ME523">
+      <option value="ME524">
+      <option value="ME601">
+      <option value="ME607">
+      <option value="ME610">
+      <option value="ME612">
+      <option value="ME613">
+      <option value="ME620">
+      <option value="ME621">
+      <option value="ME622">
+      <option value="ME623">
+      <option value="ME630">
+      <option value="ME639">
+      <option value="ME651">
+      <option value="ME652">
+      <option value="ME661">
+      <option value="ME670">
+      <option value="ME671">
+      <option value="ME680">
+      <option value="ME681">
+      <option value="ME690">
+      <option value="ME691">
+      <option value="ME701">
+      <option value="ME705">
+      <option value="ME706">
+      <option value="ME710">
+      <option value="ME712">
+      <option value="ME714">
+      <option value="ME715">
+      <option value="ME716">
+      <option value="ME720">
+      <option value="ME721">
+      <option value="ME730">
+      <option value="ME731">
+      <option value="ME732">
+      <option value="ME742">
+      <option value="ME752">
+      <option value="ME762">
+      <option value="ME782">
+      <option value="ME810">
+      <option value="ME812">
+      <option value="ME820">
+      <option value="ME821">
+      <option value="ME850">
+      <option value="ME851">
+      <option value="ME852">
+      <option value="ME853">
+      <option value="ME854">
+      <option value="ME855">
+      <option value="ME856">
+      <option value="ME857">
+      <option value="ME858">
+      <option value="ME860">
+      <option value="ME861">
+      <option value="ME881">
+      <option value="ME882">
+      <option value="ME900">
+      <option value="ME901">
+      <option value="ME902">
+      <option value="ME903">
+      <option value="ME904">
+      <option value="ME905">
+      <option value="ME906">
+      <option value="ME907">
+      <option value="ME908">
+      <option value="ME909">
+      <option value="ME910">
+      <option value="ME911">
+      <option value="ME912">
+      <option value="ME913">
+      <option value="ME914">
+      <option value="ME915">
+      <option value="ME916">
+      <option value="ME917">
+      <option value="ME918">
+      <option value="ME919">
+      <option value="ME920">
+      <option value="ME921">
+      <option value="ME951">
+  
+      <!-- Disciplinas MS -->
+      <option value="MS003">
+      <option value="MS123">
+      <option value="MS149">
+      <option value="MS210">
+      <option value="MS211">
+      <option value="MS213">
+      <option value="MS220">
+      <option value="MS317">
+      <option value="MS328">
+      <option value="MS329">
+      <option value="MS380">
+      <option value="MS400">
+      <option value="MS413">
+      <option value="MS416">
+      <option value="MS428">
+      <option value="MS431">
+      <option value="MS480">
+      <option value="MS500">
+      <option value="MS505">
+      <option value="MS512">
+      <option value="MS513">
+      <option value="MS515">
+      <option value="MS519">
+      <option value="MS520">
+      <option value="MS529">
+      <option value="MS540">
+      <option value="MS550">
+      <option value="MS571">
+      <option value="MS580">
+      <option value="MS590">
+      <option value="MS591">
+      <option value="MS602">
+      <option value="MS612">
+      <option value="MS614">
+      <option value="MS620">
+      <option value="MS629">
+      <option value="MS650">
+      <option value="MS680">
+      <option value="MS712">
+      <option value="MS714">
+      <option value="MS715">
+      <option value="MS720">
+      <option value="MS728">
+      <option value="MS750">
+      <option value="MS777">
+      <option value="MS778">
+      <option value="MS780">
+      <option value="MS820">
+      <option value="MS828">
+      <option value="MS850">
+      <option value="MS877">
+      <option value="MS878">
+      <option value="MS891">
+      <option value="MS892">
+      <option value="MS893">
+      <option value="MS894">
+      <option value="MS895">
+      <option value="MS896">
+      <option value="MS897">
+      <option value="MS898">
+      <option value="MS901">
+      <option value="MS902">
+      <option value="MS903">
+      <option value="MS904">
+      <option value="MS905">
+      <option value="MS906">
+      <option value="MS907">
+      <option value="MS908">
+      <option value="MS911">
+      <option value="MS915">
+      <option value="MS931">
+      <option value="MS932">
+      <option value="MS933">
+      <option value="MS934">
+      <option value="MS935">
+      <option value="MS936">
+      <option value="MS937">
+      <option value="MS938">
+      <option value="MS941">
+      <option value="MS942">
+      <option value="MS943">
+      <option value="MS944">
+      <option value="MS950">
+      <option value="MS960">
+      <option value="MS970">
+      <option value="MS980">
+      <option value="MS990">
+      <option value="MS991">
+      <option value="MS992">
+      <option value="MS993">
+  
+      <!-- Disciplinas EA -->
+      <option value="EA044">
+      <option value="EA052">
+      <option value="EA074">
+      <option value="EA078">
+      <option value="EA513">
+      <option value="EA611">
+      <option value="EA614">
+      <option value="EA616">
+      <option value="EA721">
+      <option value="EA772">
+      <option value="EA773">
+      <option value="EA869">
+      <option value="EA876">
+      <option value="EA879">
+      <option value="EA960">
+  
+      <!-- Disciplinas EE -->
+      <option value="EE300">
+      <option value="EE400">
+      <option value="EE410">
+      <option value="EE521">
+      <option value="EE530">
+      <option value="EE540">
+      <option value="EE610">
+      <option value="EE754">
+      <option value="EE833">
+      <option value="EE881">
+  
+      <!-- Disciplinas F -->
+      <option value="F 128">
+      <option value="F 129">
+      <option value="F 228">
+      <option value="F 229">
+      <option value="F 313">
+      <option value="F 315">
+      <option value="F 328">
+      <option value="F 329">
+      <option value="F 415">
+      <option value="F 428">
+      <option value="F 429">
+      <option value="F 489">
+      <option value="F 502">
+      <option value="F 602">
+      <option value="F 888">
+      </datalist>
+
+      <label for="ano">Ano:</label>
+      <input type="number" id="ano" name="ano" placeholder="Ex.: 2024">
+
+      <label for="semestre">Semestre:</label>
+      <input type="number" id="semestre" name="semestre" min="1" max="2" placeholder="1 ou 2">
+
+      <button type="submit">Procurar</button>
+    </form>
+
+    <div id="resultados"></div>
+  </div>
+
+  <script>
+    async function handleProcurarProva(event) {
+      event.preventDefault();
+    
+      const professor = document.getElementById('professorId').value;
+      const sigla = document.getElementById('sigla').value;
+      const ano = document.getElementById('ano').value;
+      const semestre = document.getElementById('semestre').value;
+    
+      if (!professor && !sigla) {
+        alert('Preencha pelo menos o Professor ou a Sigla!');
+        return;
+      }
+      try {
+        const response = await fetch('/api/procuraProva', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ professor, sigla, ano, semestre }),
+        });
+    
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Erro desconhecido na API');
+        }
+    
+        const data = await response.json();
+    
+        if (data.length === 0) {
+          alert('Nenhuma prova encontrada.');
+          return;
+        }
+    
+        // Gerar HTML para nova aba
+        let newTabContent = `
+          <html>
+          <head>
+            <title>Resultados da Busca</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f4f4f9;
+              }
+              h1 {
+                text-align: center;
+              }
+              .result {
+                border-bottom: 1px solid #ccc;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+              }
+              a {
+                color: #007bff;
+                text-decoration: none;
+              }
+              a:hover {
+                text-decoration: underline;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>Resultados da Busca</h1>
+        `;
+    
+        data.forEach((prova) => {
+          newTabContent += `
+            <div class="result">
+              <p><strong>Sigla:</strong> ${prova.sigla}</p>
+              <p><strong>ID Prova:</strong> ${prova.idprova}</p>
+              <p><strong>Ano:</strong> ${prova.ano}</p>
+              <p><strong>Semestre:</strong> ${prova.semestre}</p>
+              <p><strong>RA:</strong> ${prova.ra}</p>
+              <p><strong>URL:</strong> <a href="${prova.url_prova}" target="_blank">${prova.url_prova}</a></p>
+            </div>
+          `;
+        });
+    
+        newTabContent += `
+          </body>
+          </html>
+        `;
+    
+        // Abrir nova aba e escrever o conteúdo
+        const newTab = window.open();
+        newTab.document.write(newTabContent);
+        newTab.document.close();
+      } catch (error) {
+        console.error('Erro ao buscar provas:', error);
+        alert('Erro ao procurar provas: ' + error.message);
+      }
+    }
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliar Prova</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    #app {
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: white;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+    .form-container label {
+      font-size: 14px;
+      color: #333;
+    }
+    .form-container input,
+    .form-container textarea {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 100%;
+    }
+    .form-container textarea {
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Avaliar Prova</h2>
+    <form id="avaliaForm" class="form-container" onsubmit="return handleAvaliaSubmit(event)">
+      
+      <label for="idProva">ID da Prova:</label>
+      <input type="number" id="idProva" name="idProva" placeholder="" required>
+
+      <label for="ra">RA do Aluno:</label>
+      <input type="number" id="ra" name="ra" placeholder="" required>
+
+      <label for="avaliacao">Avaliação:</label>
+      <textarea id="avaliacao" name="avaliacao" rows="4" placeholder="Escreva sua avaliação aqui" required></textarea>
+
+      <button type="submit">Registrar Avaliação</button>
+    </form>
+  </div>
+
+  <script>
+    async function handleAvaliaSubmit(event) {
+      event.preventDefault();
+
+      // Captura os valores do formulário
+      const idProva = document.getElementById('idProva').value;
+      const ra = document.getElementById('ra').value;
+      const avaliacao = document.getElementById('avaliacao').value;
+
+      try {
+        // Envia a requisição POST para a API de avaliação
+        const response = await fetch('/api/avaliacao', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ idProva, ra, avaliacao }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert('Avaliação registrada com sucesso!');
+          document.getElementById('avaliaForm').reset();
+        } else {
+          alert('Erro: ' + result.error);
+        }
+      } catch (error) {
+        console.error('Erro ao enviar a avaliação:', error);
+        alert('Erro ao registrar a avaliação. Verifique o console para mais detalhes.');
+      }
+    }
+  </script>
+</body>
+</html>
